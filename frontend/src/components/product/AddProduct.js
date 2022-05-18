@@ -1,8 +1,42 @@
-import React from 'react'
+
+import axios from 'axios';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function AddProduct() {
-  return (
-    <div className="main">
+    let navigate = useNavigate();
+    const [data, setData] = useState({
+
+        name: "",
+        breed: "",
+        price: 0,
+        description: "",
+        imageUrl: ""
+    });
+
+
+
+    function Submit(e) {
+        e.preventDefault();
+        axios.post("https://62811baf1020d8520585969c.mockapi.io/api/v1/products", data).then(
+
+            navigate("/product")
+
+        )
+        
+    }
+
+    return (
+        <div className="main">
+            <div className="main-header">
+                <div className="mobile-toggle" id="mobile-toggle">
+                    <i className='bx bx-menu-alt-right'></i>
+                </div>
+                <div className="main-title">
+                    -Quản lí thú cưng -Thêm mặt hàng
+                </div>
+            </div>
+            <div className="main">
         <div className="main-header">
             <div className="mobile-toggle" id="mobile-toggle">
                 <i className='bx bx-menu-alt-right'></i>
@@ -11,56 +45,64 @@ function AddProduct() {
                 -Quản lí thú cưng -Thêm mặt hàng
             </div>
         </div>
-        <div className="main-content">
+        <div className="page-body">
             <div className="row">
-                
-            </div>
-            <div className="box">
-                <div className="box-header">
-                    <div className="control">
-                  
-                    <div className="row">
-                    <div className="col-md-6">
-                    <form action="">
-                        <label for="fname"><strong>Tên thú cưng: </strong></label>
-                        <input type="text" id="fname" name="fname"/>
-                    </form>
-                    </div>
-                    <div className="col-md-6">
-                    <form action="">
-                            <label for="cars"><strong>Giống chó: </strong></label>
-                            <select name="cars" id="cars">
-                              <option value="volvo">CHIHUAHUA</option>
-                              <option value="saab">CORGI</option>
-                              <option value="opel">PITBULL</option>
-                              <option value="audi">PUG</option>
-                            </select>
-                    </form>
-                    </div>
-                    </div>
-                    <form action="">
-                        <label for="img"><strong>Thêm ảnh: </strong></label>
-                        <input type="file" id="img" name="img" accept="image/*"/>
-                    </form>
-                    <br/>
-                    <form action="">
-                            <p><label for="Des"><strong>Mô tả: </strong></label></p>
-                        <br/>
-                            <textarea name="content" id="editor">
-                                &lt;p&gt;&lt;/p&gt;
-                            </textarea>
-                    </form>
-                    <br/>
-                    <input type="button" value="THÊM MẶT HÀNG"/>
+                <div className="col-sm-12">
                     
+                    <div className="card">
+                            <div className="card-block">
+                                <form>
+                                    <div className="form-group row">
+                                        <label className="col-sm-2 col-form-label">Tên thú cưng</label>
+                                        <div className="col-sm-10">
+                                            <input value={data.name}
+                                                onChange={(e) => setData({ ...data, name: e.target.value })} type="text" className="form-control"
+                                            placeholder="Nhập tên thú cưng"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row">
+                                        <label className="col-sm-2 col-form-label">Loại</label>
+                                        <div className="col-sm-10">
+                                            <input value={data.breed}
+                                                onChange={(e) => setData({ ...data, breed: e.target.value })} type="text" className="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row">
+                                        <label className="col-sm-2 col-form-label">Giá tiền</label>
+                                        <div className="col-sm-10">
+                                            <input value={data.price}
+                                                onChange={(e) => setData({ ...data, price: e.target.value })} type="text" className="form-control"/>
+                                        </div>
+                                    </div>
+                                                <div className="form-group row">
+                                                    <label className="col-sm-2 col-form-label">Them anh</label>
+                                                    <div className="col-sm-10">
+                                                        <input value={data.imageUrl}
+                                                    onChange={(e) => setData({ ...data, imageUrl: e.target.value })} type="text" className="form-control"/>
+                                                    </div>
+                                                </div>
+                                            <div className="form-group row">
+                                                <label className="col-sm-2 col-form-label">Mô Tả</label>
+                                                 <div className="col-sm-10">
+                                                     <textarea value={data.description}
+                                                onChange={(e) => setData({ ...data, description: e.target.value })} rows="5" cols="5" className="form-control"
+                                                    placeholder="Ghi chú mô tả thú cưng" ></textarea>
+                                          </div>
+                                         </div>
+                                         <div className="form-group row" id="nut">
+                                            <input onClick={Submit} type='submit' value="Thêm mặt hàng"/>
+                                         </div>
+                                    </form>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+
         </div>
-       
-    </div>
-   
-   
-  )
+
+
+    )
 }
 export default AddProduct

@@ -1,7 +1,9 @@
 import React from 'react'
 
+
  function Home() {
   return (
+     
     <div className="main">
     <div className="main-header">
         <div className="mobile-toggle" id="mobile-toggle">
